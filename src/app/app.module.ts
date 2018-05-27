@@ -22,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { AuthComponent } from 'app/auth/auth.component';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AuthComponent } from 'app/auth/auth.component';
     AlertifyService,
     AuthGuard,
     UserService,
-    MemberDetailResolver
+    MemberDetailResolver,
+    MemberListResolver
   ],
   bootstrap: [AppComponent]
 })

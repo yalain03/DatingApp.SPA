@@ -19,4 +19,12 @@ export class MemberDetailComponent implements OnInit {
       this.user = data['user']
     });
   }
+
+  loadUser(id) {
+    this.userService.getUser(+this.route.params['id']).subscribe((user: User) => {
+      this.user = user;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
 }

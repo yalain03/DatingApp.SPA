@@ -17,12 +17,22 @@ export class UserService {
 
   constructor(private authHttp: AuthHttp) { }
 
-  getUsers(page?:number, itemsPerPage?: number): Observable<User[]> {
+  getUsers(page?: number, itemsPerPage?: number, userParams?: any) {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let queryString = '?';
 
+    console.log(itemsPerPage + ' is the value');
+
     if(page != null && itemsPerPage != null) {
-        queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage;
+        queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+    }
+
+    if(userParams != null) {
+        queryString += 
+            'minAge=' + userParams.minAge +
+            '&maxAge=' + userParams.maxAge +
+            '&gender=' + userParams.gender +
+            '&orderBy=' + userParams.orderBy;
     }
 
     return this.authHttp
@@ -31,7 +41,7 @@ export class UserService {
           paginatedResult.result = response.json();
 
           if(response.headers.get('Pagination') != null) {
-              paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
 
           return paginatedResult;
